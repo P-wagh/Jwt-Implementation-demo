@@ -39,7 +39,7 @@ public class UserController {
     }
     
     
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody User user) {
         try {
             User u = userService.createUser(user);
