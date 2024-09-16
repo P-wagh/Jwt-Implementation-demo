@@ -60,6 +60,12 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/test")
+    public String getMethodName() {
+        return "this is from USER";
+    }
+    
     
     
 }

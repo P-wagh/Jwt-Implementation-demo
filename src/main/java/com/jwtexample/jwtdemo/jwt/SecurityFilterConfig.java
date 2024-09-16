@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.jwtexample.jwtdemo.model.Role;
+
 @Configuration
 public class SecurityFilterConfig {
 
@@ -33,7 +35,9 @@ public class SecurityFilterConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth 
                     .requestMatchers("/authenticate", "/api/v1/user/register")
-                    .permitAll()     
+                    .permitAll() 
+                    .requestMatchers("/api/v1/user/**").hasAnyAuthority(Role.USER.name())   
+                    .requestMatchers("/api/v1/admin/**").hasAnyAuthority(Role.ADMIN.name())
                     .anyRequest()
                     .authenticated()   
                 )  

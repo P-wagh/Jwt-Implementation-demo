@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jwtexample.jwtdemo.model.Role;
 import com.jwtexample.jwtdemo.model.User;
 import com.jwtexample.jwtdemo.repository.UserRepository;
 
@@ -20,6 +21,7 @@ public class UserService {
     
     public User createUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         return userRepository.save(user);
     }
 

@@ -19,11 +19,12 @@ public class CostumUserDetails implements UserDetails {
         this.user = user;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(getPassword());
-        return List.of(simpleGrantedAuthority);
-    }
+    // this for the without role base authentication
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    //     SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(getPassword());
+    //     return List.of(simpleGrantedAuthority);
+    // }
 
     @Override
     public String getPassword() {
@@ -34,5 +35,17 @@ public class CostumUserDetails implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(user.getRole().name()));
+    }
+    
+    // If you create Role class then use this 
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    //     List<SimpleGrantedAuthority> athories = user.getRoles().stream().map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    //     return athories;
+    // }
     
 }
